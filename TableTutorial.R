@@ -88,6 +88,7 @@ subTable <- myTable[myTable$Mean > 50 & myTable$Area < 50, c('Label','Integrated
 subTable <- subset(myTable, Mean > 50 & Area < 50)
 print(subTable)
 subTable <- subset(myTable, Mean > 50 & Area < 50)[,c('Label','IntegratedIntensity')]
+print(subTable)
 
 # If you are reading in a bunch of tables, it is nice to make a master table, but you
 # want to add a column (or more) to help you keep track of where the data came from.
