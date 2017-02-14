@@ -1,20 +1,4 @@
-# This hashtag symbol allow you to add a comment to the code
-
-# I'll show you how to read a table in, filter it, do stats on it, and plot data
-# First though, some quick pointers
-# Use RStudio, it is way awesome and is assumed for the rest of the tutorial
-# To get it, first download and install R, then download and install RStudio
-
-# When this file is open in RStudio in the text editor, you can put your cursor
-# on a line of code and hit Ctrl+Enter to run that line of code (Ctrl == Command on Macs)
-# If you have any text selected, Ctrl+Enter will run just the selected text
-# A quick way to run all the code is Ctrl+A (to select all) then Ctrl+Enter to run the selection
-
-# For now, just use Ctrl+Enter to run line by line to follow along
-
-# This is how you store a number or a word...
-myNumber <- 23
-myWord <- 'Hello World'
+# Table Tutorial
 
 # This is how you print them
 myNumber
@@ -23,7 +7,7 @@ myWord
 print(myNumber)
 print(myWord)
 
-# This is how you create a vector
+# This is how you create a vectord of things
 numbers <- c(1,2,3,4,5)
 numbers2 <- 1:5
 words <- c('word1','word2','word3','word4','word5')
@@ -32,7 +16,7 @@ words <- c('word1','word2','word3','word4','word5')
 for(word in words)
 {
      # This is how you make a bigger word out of multiple words
-     biggerWord <- paste0(word, ' more words') # Also look at 'paste' (using ?paste) to see how to separate words with characters easily
+     biggerWord <- paste(word, 'more words', 'and more words', sep=' : ') # Also look at 'paste' (using ?paste) to see how to separate words with characters easily
      print(biggerWord)
 }
 # Another quick for loop
@@ -41,11 +25,11 @@ for(i in 1:10)
      print(i)
 }
 
-# Let's store the path to your table to make the tutorial easier to run on your computer
+# Let's store the path to a table to make the tutorial easier to run on your computer
 # It's good to put things like this at the top of a file so you can "change" this
 # variable throughout the file later by changing once at the top.
 # Replace the path here with whereever you save the example data
-path <- '/Users/jaywarrick/Public/DropBox/GitHub/R-Tutorial/Data3.txt'
+path <- '/Users/jaywarrick/Documents/GitHub/R-Tutorial/data.txt'
 
 # This is how you read a table
 myTable <- read.table(file=path)
@@ -163,3 +147,19 @@ pdf(file=plotPath, width=6, height=4)
 plot(x=tempTable$x, y=tempTable$y, main='My Plot Title', xlab='X Axis Label [units]', ylab='Y Axis Label [units]')
 # Finish the file
 dev.off()
+
+
+# Here's another cool way to read a table
+read.clipboard <- function(os=c('mac','win'), header=T, sep="\t")
+{
+	if(os[1]=='mac')
+	{
+		return(read.table(pipe('pbpaste'), header=header, sep=sep)) # Mac
+	}
+	else
+	{
+		df <- read.table('clipboard', header=header, sep=sep) # Windows
+	}
+}
+# First go copy a table (including the header), e.g. in Excel, then run this line
+df <- read.clipboard()
