@@ -85,7 +85,7 @@ error.bar <- function(x, y, upper, lower=upper, length=0.1, ...)
 #' @param color.names - vector of names to override the color names contained in the table (must be the same length as produced by the table)
 #' @param group.names - vector of names to override the group names contained in the table (must be the same length as produced by the table)
 #' @param color.color - vector of color values (e.g., c('black', rgb(...), gray(...))) to override the automatically produced colors
-#' @param rotate.x.lables - TRUE or FALSE whether to rotate the x labels 90 degrees or not so they fit (default FALSE)
+#' @param rotate.x.labels - TRUE or FALSE whether to rotate the x labels 90 degrees or not so they fit (default FALSE)
 #' @param plot.border - TRUE or FALSE whether to plot a black line around the plot (default TRUE)
 #' @param args.error.bar - list with arguments for the error.bar function (default list(length=0.1)) (See error.bar specified in this file)
 #' @param legend - TRUE or FALSE, whether to include a legend or not in the graph (only when a group.column is specified and present)
@@ -96,7 +96,7 @@ error.bar <- function(x, y, upper, lower=upper, length=0.1, ...)
 #'
 #' @export
 bar <- function(dt, y.column, color.column, group.column=NULL, error.upper.column=NULL, error.lower.column=error.upper.column,
-			 main=NULL, ylab=NULL, xlab=NULL, color.names=NULL, group.names=NULL, color.colors=NULL, rotate.x.lables=F, plot.border=T,
+			 main=NULL, ylab=NULL, xlab=NULL, color.names=NULL, group.names=NULL, color.colors=NULL, rotate.x.labels=F, plot.border=T,
 			 args.error.bar=list(length=0.1),
 			 legend=TRUE, legend.border=F, args.legend=list(),
 			 mar=c(4.5,4.5,2,2), ...)
@@ -239,7 +239,7 @@ bar <- function(dt, y.column, color.column, group.column=NULL, error.upper.colum
 	args.barplot <- modifyList(args.barplot, list(...))
 
 	# Rotate x-axis labels if desired
-	if(rotate.x.lables)
+	if(rotate.x.labels)
 	{
 		args.barplot <- modifyList(args.barplot, list(las=2))
 	}

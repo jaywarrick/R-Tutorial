@@ -1,5 +1,12 @@
 # This hashtag symbol allows you to add comments to the file. It is not run as code.
 
+# Let's set this directory once at the beginning (it's different between mac and windows)
+# '~' means your 'home' directory like C:/Users/<username>/ on Windows or /Users/<username/ on Mac
+# MAC/LINUX
+tutorial.dir <- '~/Desktop/RTutorial'
+# WINDOWS
+tutorial.dir <- '~/../Desktop/RTutorial'
+
 # When this file is open in RStudio in the text editor, you can put your cursor
 # on a line of code and hit Ctrl+Enter to run that line of code (Ctrl = Command on Macs)
 # If you have any text selected, Ctrl+Enter will run just the selected text
@@ -244,8 +251,8 @@ library(data.table) # Now we can create data.table objects and use them
 ##### How to "Source" a File #####
 # Sometimes you have your own code in multiple files
 # You can "run" the code using the 'source' command
-# Srouce the following file with some helpful functions
-source('~/Desktop/RTutorial/HelpfulFunctions.R') # '~' means your 'home' directory like C:/Users/<username>/ on Windows or /Users/<username/ on Mac
+# Source the following file with some helpful functions
+source(file.path(tutorial.dir, 'HelpfulFunctions.R'))
 
 ##### data.table (i.e., fancy, fast, table) #####
 # data.tables ARE data.frames, but with different syntax
@@ -337,15 +344,21 @@ NA == Inf 		# NA
 is.na(NA)			# TRUE
 is.finite(NA)		# FALSE
 is.infinite(NA)	# FALSE
+is.null(NA)		# FALSE
 
 is.na(Inf)		# FALSE
 is.finite(Inf)		# FALSE
 is.infinite(Inf)	# TRUE
+is.null(Inf)		# FALSE
 
 is.na(NULL)		# logical(0) (with warning message)
 is.finite(NULL)	# logical(0)
 is.infinite(NULL)	# logical(0)
+is.null(NULL)		# TRUE
 
+is.character(NA)	# FALSE
+is.character(Inf)	# FALSE
+is.character(NULL)	# FALSE
 
 ##### Factors #####
 # You can also create 'factors' (generally a tricky data type to work with)

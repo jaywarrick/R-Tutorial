@@ -1,4 +1,4 @@
-source('~/Desktop/RTutorial/HelpfulFunctions.R')
+source(file.path(tutorial.dir, 'HelpfulFunctions.R'))
 library(data.table)
 
 ##### Importing and Exporting Data #####
@@ -13,26 +13,26 @@ View(temp)
 temp
 
 # Write and read a CSV file
-write.csv(x=temp, file='~/Desktop/RTutorial/table.csv', row.names=FALSE)
-temp <- data.table(read.csv(file='~/Desktop/RTutorial/table.csv', stringsAsFactors=FALSE))
+write.csv(x=temp, file=file.path(tutorial.dir, 'table.csv'), row.names=FALSE)
+temp <- data.table(read.csv(file=file.path(tutorial.dir, 'table.csv'), stringsAsFactors=FALSE))
 # OR
-fwrite(x=temp, file='~/Desktop/RTutorial/table2.csv', row.names=FALSE)		# Super fast writing of files by data.table
-temp <- fread(input='~/Desktop/RTutorial/table2.csv', stringsAsFactors=FALSE)	# Super fast reading of files by data.table
+fwrite(x=temp, file=file.path(tutorial.dir, 'table2.csv'), row.names=FALSE, showProgress=T)		# Super fast writing of files by data.table
+temp <- fread(input=file.path(tutorial.dir, 'table2.csv'), stringsAsFactors=FALSE, showProgress=T)	# Super fast reading of files by data.table
 
 # Write and read a TAB DELIMITTED file
-write.table(x=temp, file='~/Desktop/RTutorial/table.txt', sep="\t") 	 		# Notice double quotes around "\t"
-temp <- data.table(read.delim(file='~/Desktop/RTutorial/table.txt', stringsAsFactors=FALSE))
+write.table(x=temp, file=file.path(tutorial.dir, 'table.txt'), sep="\t") # Notice double quotes around "\t"
+temp <- data.table(read.delim(file=file.path(tutorial.dir, 'table.txt'), stringsAsFactors=FALSE))
 # OR
-fwrite(x=temp, file='~/Desktop/RTutorial/table2.txt', sep="\t")		 		# Super fast writing of files by data.table
-temp <- fread(input='~/Desktop/RTutorial/table2.txt', stringsAsFactors=FALSE)	# Super fast writing of files by data.table
+fwrite(x=temp, file=file.path(tutorial.dir, 'table2.txt'), sep="\t", showProgress=T)		 		# Super fast writing of files by data.table
+temp <- fread(input=file.path(tutorial.dir, 'table2.txt'), stringsAsFactors=FALSE, showProgress=T)	# Super fast writing of files by data.table
 
 # Write and read an XLSX file
 # You might need to run this before hand on Mac 'sudo R CMD javareconf' in the terminal
 install.packages("rJava") #,type='source')
 install.packages("xlsx")
 library(xlsx)
-write.xlsx(x=temp, file=path.expand('~/Desktop/RTutorial/table.xlsx'), sheetName='RawData', row.names=FALSE) # Evidently you need to specify the full path, thus the use of 'path.expand' which fills in what is implied by the '~' symbol
-temp <- data.table(read.xlsx(file='~/Desktop/RTutorial/table.xlsx', sheetName='RawData'), stringsAsFactors=FALSE)
+write.xlsx(x=temp, file=path.expand(file.path(tutorial.dir, 'table.xlsx')), sheetName='RawData', row.names=FALSE) # Evidently you need to specify the full path, thus the use of 'path.expand' which fills in what is implied by the '~' symbol
+temp <- data.table(read.xlsx(file=file.path(tutorial.dir, 'table.xlsx'), sheetName='RawData'), stringsAsFactors=FALSE)
 # Note that two string columns are factors
 # See (https://www.stat.berkeley.edu/classes/s133/factors.html) for how to convert to regular columns
 
@@ -95,7 +95,7 @@ bar(dt=summary, y.column='mean', color.column='Tx', group.column='Cell.Type', er
 
 # Change group.names and color.names, rotate the group.names
 bar(dt=summary, y.column='mean', color.column='Tx', group.column='Cell.Type', group.names=c('~LNCaP~','~MCF-7~','~PC3~'), color.names=c('~Control~','~Drug~'), error.upper.column='se', error.lower.column=NULL,
-    ylim=c(0, 125), xlab='', ylab='Viability', color.colors=c('gray','black'), rotate.x.lables=T)
+    ylim=c(0, 125), xlab='', ylab='Viability', color.colors=c('gray','black'), rotate.x.labels=T)
 
 # Change font sizes (See ?legend for things you can put into the 'args.legend' parameter to change the legend, such as position, overall width for legend text, border, background, title, lines spacing and text size)
 # cex.lab: Changes the size of the x and y labels (i.e., 'Viability', and 'Cell Type')
@@ -132,7 +132,7 @@ graphics.off() # This basically resets plotting to files
 # With pdfs, you can specify font using the 'family' parameter
 # Fonts include "AvantGarde", "Bookman", "Courier", "Helvetica" (defualt), "Helvetica-Narrow", "NewCenturySchoolbook", "Palatino" or "Times"
 # I typically create the pdf. Then I can open the pdf and save as any resolution and any type of image needed.
-pdf(file='~/Desktop/RTutorial/plot.pdf', width=5, height=4)
+pdf(file=file.path(tutorial.dir, 'plot.pdf'), width=5, height=4)
 bar(dt=summary, y.column='mean', color.column='Tx', group.column='Cell.Type', error.upper.column='se', ylim=c(0, 125), xlab='Cell Type', ylab='Viability')
 dev.off()
 
@@ -140,25 +140,25 @@ resolution <- 300 			# ppi or dpi
 pixelWidth <- resolution * 5 	# dpi * inches = pixels
 pixelHeight <- resolution * 4	# dpi * inches = pixels
 
-bmp(filename = '~/Desktop/RTutorial/plot.bmp',
+bmp(filename = file.path(tutorial.dir, 'plot.bmp'),
     width = pixelWidth, height = pixelHeight, units = "px", pointsize = 12,
     bg = "white", res = resolution)
 bar(dt=summary, y.column='mean', color.column='Tx', group.column='Cell.Type', error.upper.column='se', ylim=c(0, 125), xlab='Cell Type', ylab='Viability')
 dev.off()
 
-jpeg(filename = '~/Desktop/RTutorial/plot.jpeg',
+jpeg(filename = file.path(tutorial.dir, 'plot.jpeg'),
 	width = pixelWidth, height = pixelHeight, units = "px", pointsize = 12,
 	quality = 75,	bg = "white", res = resolution)
 bar(dt=summary, y.column='mean', color.column='Tx', group.column='Cell.Type', error.upper.column='se', ylim=c(0, 125), xlab='Cell Type', ylab='Viability')
 dev.off()
 
-png(filename = '~/Desktop/RTutorial/plot.png',
+png(filename = file.path(tutorial.dir, 'plot.png'),
     width = pixelWidth, height = pixelHeight, units = "px", pointsize = 12,
     bg = "white",  res = resolution)
 bar(dt=summary, y.column='mean', color.column='Tx', group.column='Cell.Type', error.upper.column='se', ylim=c(0, 125), xlab='Cell Type', ylab='Viability')
 dev.off()
 
-tiff(filename = '~/Desktop/RTutorial/plot.tiff',
+tiff(filename = file.path(tutorial.dir, 'plot.tiff'),
 	width = pixelWidth, height = pixelHeight, units = "px", pointsize = 12,
 	compression = c("none", "rle", "lzw", "jpeg", "zip", "lzw+p", "zip+p"),
 	bg = "white", res = resolution)

@@ -1,4 +1,4 @@
-source('~/Desktop/RTutorial/HelpfulFunctions.R')
+source(file.path(tutorial.dir, 'HelpfulFunctions.R'))
 
 # Create some fake data
 set.seed(1234) # Just for tutorial purposes, set the random number generator seed so everyone gets same numbers in their table
@@ -49,8 +49,8 @@ pairwise.t.test(x=temp$Viability, g=temp$g, p.adjust.method='none', paired=FALSE
 set.seed(1235) # Just for tutorial purposes, set the random number generator seed so everyone gets same numbers in their table
 temp <- data.table(Tx=c('Control','Drug'), Replicate=rep(c(1,2,3,4), each=2), Mouse=rep(c(1,2,3), each=8), Experiment=rep(c(1,2,3), each=24), Viability=runif(72, 0, 100))
 temp <- temp[order(Experiment, Mouse, Tx, Replicate)]
-# Save for later
-fwrite(temp, file='~/Desktop/Rtutorial/final.csv')
+# # Save for later
+# fwrite(temp, file=file.path(tutorial.dir, 'final.csv'))
 
 # Consider each day an experimental/biological replicate
 summary <- wilcox.test.combined(data=temp, replCols='Experiment', condCol='Tx', valCol='Viability', exact=NULL, two.tailed=TRUE)
